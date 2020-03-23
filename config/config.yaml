@@ -1,0 +1,9 @@
+mongo:
+  host: 127.0.0.1
+  port: 27017
+  database: "gdlinks"
+
+host: 127.0.0.1
+port: 5000
+
+api_key: AIzaSyDgX-rIT2xaSPYKur323eqat9W1JOvDMS0

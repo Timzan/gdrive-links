@@ -1,0 +1,16 @@
+def setup_routes(app, handler, base_dir):
+    router = app.router
+    router.add_get("/", handler.index, name="index")
+    router.add_post('/', handler.index)
+    router.add_get("/login", handler.login_page, name="login")
+    router.add_post("/login", handler.login)
+    router.add_get("/logout", handler.logout, name="logout")
+    router.add_get("/register", handler.register_page, name="register")
+    router.add_post("/register", handler.register)
+    router.add_get("/public_homepage", handler.public_homepage, name="public_homepage")
+    router.add_post("/remove_link/{link_id}", handler.remove_link, name='remove_link')
+    router.add_post("/remove_user/{user_id}", handler.remove_user, name='remove_user')
+    router.add_get("/change_password/{username}", handler.change_password_page, name='change_password')
+    router.add_post("/change_password/{username}", handler.change_password)
+    router.add_get("/download_file/{file_id}", handler.download_file, name='download_file')
+    router.add_get("/download_all", handler.background_handler, name='download_all')

@@ -1,0 +1,83 @@
+{% extends "base_template.html" %}
+{% block title %}
+{% if endpoint == 'public_homepage' %}
+Welcome
+{%  elif endpoint =='index' %}
+Welcome, {{ user.username }}
+{% endif %}
+{% endblock %}
+{% block main %}
+    <h2>{{ self.title() }}</h2>
+<div class="my-3"></div>
+    {% if user %}
+
+<div class="my-3"></div>
+
+
+
+        <form action="{{ url('logout') }}" method=get> <input type="submit" value="Logout" /></form>
+        <div class="my-3"></div>
+
+        <form action="{{ url('change_password', username = user.username) }}" method=get>
+            <input type="submit"  value="Change password"/></form>
+        <div class="my-3"></div>
+
+        <form action="{{ url('remove_user', user_id = user._id|string) }}" method=post>
+            <input type="submit"  value="Remove User"/> <b>Caution! User will be removed instantly</b>
+        </form>
+
+        <div class="my-5"></div>
+        <p><b>Download all files:</b></p>
+ <form action="{{ url('download_all') }}" method=get >
+            <input type="submit"  value="Download"/>
+        </form>
+
+         <div class="my-5"></div>
+
+        <form action="" method=post >
+    <dl>
+      <dt>New Link:
+      <dd><input type=url name=url size=90
+                 placeholder="Google Drive sharable link: 'https://drive.google.com/open?id=SomeExampleId123'"
+                 pattern="(https\:\/\/drive\.google\.com\/open\?id\=.*)" value="{{ form.url }}" required>
+        <dd><input type="text" name="filename" size="90"
+    placeholder="Filename's here" value="{{ form.filename }}" required>
+    </dd>
+        {% if error_msg %}<div class=error><strong>Error:</strong> {{ error_msg }}</div>{% endif %}
+
+    </dl>
+    <div class=actions><input type=submit value="Save"></div>
+  </form>
+
+        <div class="my-5"></div>
+        <h4>Your links here:</h4>
+         {% for link in links %}
+             <ul class="list-group" style="">
+             <li  class="list-group-item d-flex justify-content-between align-items-center">
+                 <a target="_blank" rel="noopener noreferrer" href="{{ link.url}}" > {{ link.filename }}</a>
+                 <div class="d-flex flex-row-reverse">
+                     <div class="p-2"><form action="{{ url('remove_link', link_id=link._id|string) }}" method=post>
+                             <input type="submit" value="Remove Link" />
+                         </form></div>
+                     <div class="p-2"><form action="{{ url('download_file', file_id=link.file_id|string) }}" method=get>
+                             <input type="submit" value="Download" />
+                         </form></div>
+
+                 </div>
+             </li>
+             </ul>
+
+        {% endfor %}
+
+    {% else %}
+
+
+
+
+
+        <h4>Sign In or Sign Up</h4>
+        <p><a class="login" href="{{ url('login') }}">Sign In</a></p>
+        <p><a class="register" href="{{ url('register') }}">Sign Up</a></p>
+    {% endif %}
+
+{% endblock %}
