@@ -39,6 +39,10 @@ python main.py
  Страница входа:
  
     http://localhost:5000/login
+    
+  Сохраняются ссылки в формате
+  
+    https://drive.google.com/open?id=ExAmplEiD__12345
   
   ##
   * При нажатии кнопки "Remove User" пользователь удаляется мгновенно.
